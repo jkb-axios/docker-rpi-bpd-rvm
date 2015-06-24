@@ -1,0 +1,45 @@
+commit b7b88b43327a56111865e143e511c6e31e373c20
+Author: Kipp Bowen <kipp.bowen@axiosengineering.com>
+Date:   Thu Jun 18 12:42:40 2015 -0400
+
+    fix file read
+
+diff --git a/lib/soca.rb b/lib/soca.rb
+index 0c0db43..6822a35 100644
+--- a/lib/soca.rb
++++ b/lib/soca.rb
+@@ -7,7 +7,7 @@ require 'logger'
+ $LOAD_PATH.unshift(File.expand_path(File.join(File.dirname(__FILE__))))
+ 
+ module Soca
+-  VERSION = '0.3.3'
++  VERSION = '0.3.4'
+ 
+   class << self
+     attr_accessor :debug
+diff --git a/lib/soca/pusher.rb b/lib/soca/pusher.rb
+index e63be4b..058f11c 100644
+--- a/lib/soca/pusher.rb
++++ b/lib/soca/pusher.rb
+@@ -150,7 +150,7 @@ module Soca
+ 
+     private
+     def map_file(path, hash)
+-      file_data = File.binread(path)
++      file_data = File.read(path, :encoding => 'UTF-8')
+       base_path = path.gsub(app_dir, '')
+       if map = mapped_directories.detect {|k,v| k =~ base_path }
+         logger.debug "Matched #{path} against #{map.inspect}"
+diff --git a/soca.gemspec b/soca.gemspec
+index a889c2c..2be3a22 100644
+--- a/soca.gemspec
++++ b/soca.gemspec
+@@ -5,7 +5,7 @@
+ 
+ Gem::Specification.new do |s|
+   s.name = "soca"
+-  s.version = "0.3.3"
++  s.version = "0.3.4"
+ 
+   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
+   s.authors = ["Aaron Quint"]

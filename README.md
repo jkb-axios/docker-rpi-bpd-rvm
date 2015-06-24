@@ -1,4 +1,4 @@
-# docker-rpi-buildpack-deps
+# docker-rpi-bpd-rvm
 Based on [resin/rpi-rasbian](https://registry.hub.docker.com/u/resin/rpi-raspbian/)
 and configured for use as a base image for other projects.
 
